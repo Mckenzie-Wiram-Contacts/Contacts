@@ -1,8 +1,14 @@
+package src;
+
+import src.Input;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -28,15 +34,16 @@ public class PhoneBook {
             Files.createDirectories(dataDirectory);
         }
 
-        if (! Files.exists(dataFile)) {
+        if (!Files.exists(dataFile)) {
             Files.createFile(dataFile);
         }
 
         List<String> groceryList = new ArrayList<>();
 
-        String item1 = "loaf of bread";
+        String item1 = "loaf of bread | 1234567890";
 
         groceryList.add(item1);
+        groceryList.add("loaf of wheat bread");
         groceryList.add("breakfast cereal");
         groceryList.add("cat food");
         groceryList.add("whole chicken");
@@ -59,7 +66,30 @@ public class PhoneBook {
             for (int i = 0; i < printListFromFile.size(); i++) {
                 System.out.println(printListFromFile.get(i));
             }
-
+        } else if (choice == 2) {
+            Input something = new Input(new Scanner(System.in));
+            System.out.println("What is the Name of the Contact You Would Like To Add?");
+            String name = something.getString();
+            System.out.println();
+            System.out.println("What is the Phone Number for " + name);
+            String phoneNumber = something.getString();
+            System.out.println();
+            System.out.println("Contact Added");
+            Files.write(dataFile, Arrays.asList(name + " | " + phoneNumber), StandardOpenOption.APPEND);
+        } else if (choice == 3) {
+            Input name = new Input(new Scanner(System.in));
+            System.out.println("Which Contact are you looking for?");
+            String search = name.getString();
+            List<String> contactsList = Files.readAllLines(dataFile);
+            for (String line : contactsList) {
+                try {
+                    String something = line.substring(0, search.length());
+                    if (something.equalsIgnoreCase(search)) {
+                        System.out.println(line);
+                    }
+                } catch (Exception e) {
+                }
+            }
         }
     }
 }
