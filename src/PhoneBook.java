@@ -90,6 +90,25 @@ public class PhoneBook {
                 } catch (Exception e) {
                 }
             }
+        }else if (choice == 4) {
+            System.out.println("Which contact do you want to delete?");
+            Input name = new Input(new Scanner(System.in));
+            String search = name.getString();
+            List<String> contactsList = Files.readAllLines(dataFile);
+            int deleteSomething = 0;
+            for (String line : contactsList) {
+                try {
+                    
+                    
+                    String something = line.substring(0, search.length());
+                    if (something.equalsIgnoreCase(search)) {
+                        deleteSomething = contactsList.indexOf(line);
+                    }
+                } catch (Exception e) {
+                }
+            }
+            contactsList.remove(deleteSomething);
+            Files.write(dataFile, contactsList);
         }
     }
 }
