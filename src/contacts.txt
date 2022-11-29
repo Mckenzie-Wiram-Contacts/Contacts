@@ -1,4 +1,5 @@
-loaf of bread
+loaf of bread | 1234567890
+loaf of wheat bread
 breakfast cereal
 cat food
 whole chicken

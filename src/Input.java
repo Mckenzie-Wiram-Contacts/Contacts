@@ -1,4 +1,4 @@
-
+package src;
 
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -31,7 +31,6 @@ public class Input {
         if (num < min || num > max) {
             return getInt(min, max);
         } else {
-            System.out.println(num);
             return num;
         }
 
@@ -41,7 +40,7 @@ public class Input {
     public int getInt(){
         System.out.println("Give me a number");
         int num = scanner.nextInt();
-        System.out.println(num);
+        System.out.println();
         return num;
     }
 
