@@ -1,6 +1,3 @@
-loaf of bread | 1234567890
-loaf of wheat bread
-breakfast cereal
-cat food
-whole chicken
-asparagus (we are fancy)
+Alvin Mckenzie | (123)-123-4456
+Matt Wiram | (867)-586-7567
+Nathan Emad | (123)-412-3123
