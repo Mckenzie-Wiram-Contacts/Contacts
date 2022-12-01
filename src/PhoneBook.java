@@ -26,16 +26,16 @@ public class PhoneBook {
 
         List<String> contactsList = Files.readAllLines(dataFile);
         for (String line : contactsList) {
-            try {
-                String something = line.substring(0, name.length());
-                if (something.equalsIgnoreCase(name)) {
+            System.out.println(line);
+
+
+                if (line.contains(name)) {
                     return true;
                 }
-                else return false;
-            } catch (Exception e) {
+
             }
-        }
-        return true;
+
+        return false;
     }
 
 
@@ -96,23 +96,44 @@ public static void getContacts() throws IOException {
             System.out.printf("%-16s | %-22s |\n", first, second);
 
         }
+        System.out.println("\n");
         getContacts();
     } else if (choice == 2) {
         Input something = new Input(new Scanner(System.in));
         System.out.println("What is the Name of the Contact You Would Like To Add?");
         String name = something.getString();
-        boolean check = checkName(name, dataFile);
-        if (check == true) {
-            System.out.println("Name is already in contacts try again");
+        System.out.println("What is the Phone Number for " + name);
+        String phoneNumber = something.getString();
+        phoneNumber = formatNum(phoneNumber);
+
+
+        int index = 0;
+        boolean bool = false;
+        List<String> contactsList = Files.readAllLines(dataFile);
+        for (int i = 0; i < contactsList.size(); i++) {
+            if (contactsList.get(i).contains(name)){
+                        System.out.println("Name is already in contacts want to overwrite?");
+                        bool = something.yesNo();
+                        index = i;
+
+
+                    }
+                }
+        if (bool == true) {
+            contactsList.set(index, name + " | " + phoneNumber);
+            Files.write(dataFile, contactsList);
             getContacts();
-        } else if (check == false) {
-            System.out.println("What is the Phone Number for " + name);
-            String phoneNumber = something.getString();
-            phoneNumber = formatNum(phoneNumber);
+        } else {
             System.out.println("Contact Added");
             Files.write(dataFile, Arrays.asList(name + " | " + phoneNumber), StandardOpenOption.APPEND);
             getContacts();
+
         }
+
+
+
+
+
 
     } else if (choice == 3) {
         Input name = new Input(new Scanner(System.in));
